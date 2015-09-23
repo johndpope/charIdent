@@ -6,7 +6,7 @@ from dataset import Dataset
 class Preprocess:
 
 	def __init__(self):
-		self.source_dir = "../sd_nineteen/HSF_0"
+		self.source_dir = ["../sd_nineteen/HSF_0", "../sd_nineteen/HSF_1", "../sd_nineteen/HSF_2"]
 		self.dest_dir = "./dataset"
 		self.char_count = []
 		for i in range(62):
@@ -32,24 +32,23 @@ class Preprocess:
 		else:
 			char_index = char_type - ord('0') + 52
 		self.char_count[char_index] += 1
-		# output_name = str(chr(char_type)) + '_' + str(self.char_count[char_index]) + ".bmp"
 		im = Image.open(file_name)
 		im = im.resize((self.width, self.height), self.resize_op)
 		im = PIL.ImageOps.invert(im)
 		self.dset.addImage(im, self.char_count[char_index], chr(char_type), char_index)
-		# print output_name
-		# im.save(os.path.join(self.dest_dir, output_name))
 
 	def preprocessDirectory(self):
-		d = self.source_dir
-		self.subdir = [os.path.join(d,o) for o in os.listdir(d) if os.path.isdir(os.path.join(d,o))]
-		done = 0.0
-		for sdir in self.subdir:
-			imfile = [os.path.join(sdir,f) for f in os.listdir(sdir) if os.path.isfile(os.path.join(sdir,f))]
-			for f in imfile:
-				if(f.endswith('.bmp')):
-					self.preprocessImage(f)
-			done = done + 1.0
-			perc = (done/len(self.subdir))*100.0
-			print str(perc) + '%c Done -----------> ' % '%' + sdir
+		cnt = 1
+		for d in self.source_dir:
+			self.subdir = [os.path.join(d,o) for o in os.listdir(d) if os.path.isdir(os.path.join(d,o))]
+			done = 0.0
+			for sdir in self.subdir:
+				imfile = [os.path.join(sdir,f) for f in os.listdir(sdir) if os.path.isfile(os.path.join(sdir,f))]
+				for f in imfile:
+					if(f.endswith('.bmp')):
+						self.preprocessImage(f)
+				done = done + 1.0
+				perc = (done/len(self.subdir))*100.0
+				print 'Directory %d of %d %f%c Done -----------> ' % (cnt, len(self.source_dir), perc, '%') + sdir
+			cnt += 1
 		self.dset.saveDataset()

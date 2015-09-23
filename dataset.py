@@ -21,6 +21,8 @@ class Dataset:
 		return chr(ord('0') + index - 52)
 
 	def saveDataset(self):
+		tot_images = 0
+		print 'chr\tnum'
 		for i in range(62):
 			if(i < 26):
 				char_type = chr(ord('A') + i)
@@ -32,7 +34,9 @@ class Dataset:
 			out_file_path = os.path.join(self.dest_dir, out_file_name)
 			fout = open(out_file_path, 'wb')
 			pickle.dump(self.darray[i], fout, pickle.HIGHEST_PROTOCOL)
-			print str(char_type) + ' -------------> ' + str(len(self.darray[i])) + ' datapoints.'
+			tot_images += len(self.darray[i])
+			print str(char_type) + '\t' + str(len(self.darray[i]))
+		print '%d total images processed.' % tot_images
 
 	def loadDataset(self):
 		for i in range(62):
