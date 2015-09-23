@@ -2,6 +2,7 @@ from PIL import Image
 import PIL.ImageOps
 import os
 from dataset import Dataset
+from progressbar import *
 
 class Preprocess:
 
@@ -41,14 +42,16 @@ class Preprocess:
 		cnt = 1
 		for d in self.source_dir:
 			self.subdir = [os.path.join(d,o) for o in os.listdir(d) if os.path.isdir(os.path.join(d,o))]
-			done = 0.0
-			for sdir in self.subdir:
+			dir_str = 'Directory %d of %d: ' % (cnt, len(self.source_dir))
+			widgets=[dir_str, Bar('=', '[', ']'), ' ', Percentage(), ' ', ETA(), ' ', FileTransferSpeed()]
+			bar = ProgressBar(maxval=len(self.subdir), widgets=widgets).start()
+			for i in range(len(self.subdir)):
+				sdir = self.subdir[i]
 				imfile = [os.path.join(sdir,f) for f in os.listdir(sdir) if os.path.isfile(os.path.join(sdir,f))]
 				for f in imfile:
 					if(f.endswith('.bmp')):
 						self.preprocessImage(f)
-				done = done + 1.0
-				perc = (done/len(self.subdir))*100.0
-				print 'Directory %d of %d %f%c Done -----------> ' % (cnt, len(self.source_dir), perc, '%') + sdir
+				bar.update(i + 1)
+			bar.finish()
 			cnt += 1
 		self.dset.saveDataset()
