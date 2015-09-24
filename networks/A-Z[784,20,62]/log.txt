@@ -1,0 +1,37 @@
+Loading dataset... done.
+Partitioning dataset... Found 65000 images in the dataset
+Splitting dataset into training and test partitions in 75 : 25 ratio
+done
+Intialising Neural Network... done
+Training Neural Network...
+Epoch 0: 5053 / 16250
+Epoch 1: 9299 / 16250
+Epoch 2: 11459 / 16250
+Epoch 3: 12869 / 16250
+Epoch 4: 13363 / 16250
+Epoch 5: 13468 / 16250
+Epoch 6: 14014 / 16250
+Epoch 7: 14734 / 16250
+Epoch 8: 14818 / 16250
+Epoch 9: 14841 / 16250
+Epoch 10: 14948 / 16250
+Epoch 11: 15481 / 16250
+Epoch 12: 15511 / 16250
+Epoch 13: 15539 / 16250
+Epoch 14: 15559 / 16250
+Epoch 15: 15561 / 16250
+Epoch 16: 15567 / 16250
+Epoch 17: 15741 / 16250
+Epoch 18: 16119 / 16250
+Epoch 19: 16152 / 16250
+Epoch 20: 16163 / 16250
+Epoch 21: 16170 / 16250
+Epoch 22: 16174 / 16250
+Epoch 23: 16178 / 16250
+Epoch 24: 16186 / 16250
+Epoch 25: 16181 / 16250
+Epoch 26: 16187 / 16250
+Epoch 27: 16189 / 16250
+Epoch 28: 16194 / 16250
+Epoch 29: 16195 / 16250
+done

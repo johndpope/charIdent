@@ -48,7 +48,7 @@ class Dataset:
 		log_file.close()
 
 	def loadDataset(self):
-		for i in range(62):
+		for i in range(0, 62):
 			if(i < 26):
 				char_type = chr(ord('A') + i)
 			elif(i < 52):
@@ -58,6 +58,18 @@ class Dataset:
 			out_file_name = 'char_' + char_type + '.pkl'
 			out_file_path = os.path.join(self.dest_dir, out_file_name)
 			self.darray[i] = pickle.load(open(out_file_path, 'rb'))
+
+	def result_vector(self, j):
+		e = np.zeros((62, 1))
+		e[j] = 1.0
+		return e
+
+	def image_vector(self, dpoint):
+		e = np.zeros((dpoint.width * dpoint.height, 1))
+		for i in range(dpoint.width):
+			for j in range(dpoint.height):
+				e[i*dpoint.width + j] = dpoint.im[i][j]/255.0
+		return e
 
 	def getPartitions(self):
 		data_arr = []
@@ -69,31 +81,18 @@ class Dataset:
 		print 'Found %d images in the dataset' % len(data_arr)
 		print 'Splitting dataset into training and test partitions in %d : %d ratio' % (self.perc, 100 - self.perc)
 		splidx = int(len(data_arr)*(self.perc/100.0))
-		tst_arr = data_arr[:splidx]
-		tr_arr = data_arr[splidx:]
+		tr_arr = data_arr[:splidx]
+		tst_arr = data_arr[splidx:]
 		training_inputs = []
 		training_results = []
 		test_inputs = []
 		test_results = []
 		for dpoint in tr_arr:
-			training_results.append(result_vector(dpoint.char_index))
-			training_inputs.append(image_vector(dpoint))
+			training_results.append(self.result_vector(dpoint.char_index))
+			training_inputs.append(self.image_vector(dpoint))
 		for dpoint in tst_arr:
 			test_results.append(dpoint.char_index)
-			test_inputs.append(image_vector(dpoint))
+			test_inputs.append(self.image_vector(dpoint))
 		training_data = zip(training_inputs, training_results)
 		test_data = zip(test_inputs, test_results)
 		return (training_data, test_data)
-
-
-	def result_vector(j):
-		e = np.zeros((62, 1))
-		e[j] = 1.0
-		return e
-
-	def image_vector(dpoint):
-		e = np.zeros((dpoint.width * dpoint.height, 1))
-		for i in range(dpoint.width):
-			for j in range(dpoint.height):
-				e[i*dpoint.width + j] = dpoint.im[i][j]
-		return e

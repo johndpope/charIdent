@@ -1,6 +1,6 @@
 # Datasets #
 ############
-*.pkl
+dataset/*
 
 # Compiled source #
 ###################
@@ -20,3 +20,4 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+*~
