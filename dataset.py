@@ -19,9 +19,9 @@ class Dataset:
 
 	def indextochar(self, index):
 		if(index < 26):
-			return chr(ord('A') + index)
+			return chr(ord('a') + index)
 		if(index < 52):
-			return chr(ord('a') + index - 26)
+			return chr(ord('A') + index - 26)
 		return chr(ord('0') + index - 52)
 
 	def saveDataset(self):
@@ -31,9 +31,9 @@ class Dataset:
 		print 'chr\tnum'
 		for i in range(62):
 			if(i < 26):
-				char_type = chr(ord('A') + i)
+				char_type = chr(ord('a') + i)
 			elif(i < 52):
-				char_type = chr(ord('a') + i - 26)
+				char_type = chr(ord('A') + i - 26)
 			else:
 				char_type = chr(ord('0') + i - 52)
 			out_file_name = 'char_' + char_type + '.pkl'
@@ -50,9 +50,9 @@ class Dataset:
 	def loadDataset(self):
 		for i in range(0, 62):
 			if(i < 26):
-				char_type = chr(ord('A') + i)
+				char_type = chr(ord('a') + i)
 			elif(i < 52):
-				char_type = chr(ord('a') + i - 26)
+				char_type = chr(ord('A') + i - 26)
 			else:
 				char_type = chr(ord('0') + i - 52)
 			out_file_name = 'char_' + char_type + '.pkl'
