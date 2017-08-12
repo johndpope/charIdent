@@ -11,7 +11,7 @@ net=pickle.load(open('./network.pkl','rb'))
 print net.sizes
 ans = []
 sumans = 0
-char_var = 'o'
+char_var = '4'
 char_type = ord(char_var)
 if(char_type >= ord('A') and char_type <= ord('Z')):
 	char_index = char_type - ord('A') + 26
@@ -25,7 +25,7 @@ print 'Loading dataset...',
 for cnt in range(2500):
 	print str(cnt) + ' running'
 	image_name = str(char_var) + '_' + str(cnt) + '.png'
-	image_loc = '../mlp-character-recognition/captcha_images/' + str(char_var) + '/' + image_name
+	image_loc = './captcha_dataset/' + str(char_var) + '/' + image_name
 	# image_loc = 'A_0.png'
 	print image_loc
 	im=Image.open(image_loc) #take file_name as input via function or cmd line

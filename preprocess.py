@@ -1,6 +1,6 @@
 from PIL import Image
 import PIL.ImageOps
-import cv2
+# import cv2
 import os
 from dataset import Dataset
 from progressbar import *
